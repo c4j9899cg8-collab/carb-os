@@ -3,250 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarbonOS Pro | Citizen Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>CarbonOS Lite | Oman Net Zero Initiative</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --primary: #00f5a0;
-            --secondary: #00d9f5;
-            --bg-dark: #0f172a;
-            --card-dark: #1e293b;
+            --primary: #10b981;
+            --secondary: #064e3b;
+            --accent: #fbbf24;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg-dark);
-            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            padding: 40px 0;
         }
 
-        .iphone-frame {
-            width: 380px;
-            height: 800px;
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Phone Frame */
+        .phone {
+            width: 360px;
+            height: 740px;
             background: #000;
-            border-radius: 50px;
-            padding: 12px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            border-radius: 45px;
+            border: 10px solid #334155;
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
         }
 
         .screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
-            border-radius: 40px;
+            background: var(--bg);
             overflow-y: auto;
-            position: relative;
             scrollbar-width: none;
         }
 
-        /* Top Header */
-        .header {
-            padding: 40px 25px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 15px;
-            background: linear-gradient(var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        /* Hero Score Card */
-        .hero-score {
-            margin: 0 20px;
-            padding: 30px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 35px;
+        /* App Header */
+        .app-header {
+            background: linear-gradient(180deg, var(--secondary) 0%, var(--bg) 100%);
+            padding: 30px 20px;
             text-align: center;
-            position: relative;
         }
 
-        .progress-ring {
+        .label-tag {
+            background: var(--glass);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Progress Circle */
+        .circle-container {
+            position: relative;
             width: 180px;
             height: 180px;
-            margin: 0 auto;
-            position: relative;
+            margin: 20px auto;
         }
 
-        .score-display {
+        .score-box {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
         }
 
-        .score-val { font-size: 3rem; font-weight: 800; display: block; line-height: 1; }
-        .score-unit { font-size: 0.8rem; color: var(--primary); font-weight: 600; }
+        .score-val { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
 
-        /* Impact Categories */
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            padding: 25px;
-        }
-
-        .cat-card {
-            background: #273549;
+        /* Cards */
+        .card {
+            background: var(--card);
+            margin: 0 20px 15px;
             padding: 20px;
-            border-radius: 25px;
-            transition: 0.3s;
-        }
-
-        .cat-card i { color: var(--secondary); font-size: 1.5rem; margin-bottom: 10px; }
-        .cat-val { display: block; font-size: 1.2rem; font-weight: 700; margin-top: 5px; }
-        .cat-label { font-size: 0.75rem; opacity: 0.6; }
-
-        /* Transaction List */
-        .logs {
-            padding: 0 25px 100px;
-        }
-
-        .log-row {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.03);
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .cid-icon {
-            width: 40px;
-            height: 40px;
+        .flex-row { display: flex; justify-content: space-between; align-items: center; }
+
+        .btn-add {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
             border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .badge {
+            font-size: 0.65rem;
             background: #334155;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
         }
 
-        .impact-badge {
-            margin-left: auto;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* Bottom Nav */
-        .nav {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            height: 70px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-item { color: rgba(255,255,255,0.4); font-size: 1.4rem; cursor: pointer; }
-        .nav-item.active { color: var(--primary); }
+        .impact-text { color: var(--primary); font-weight: 700; }
+        .merchant-badge { color: var(--accent); font-size: 0.9rem; margin-top: 5px; display: block; }
     </style>
 </head>
 <body>
 
-<div class="iphone-frame">
-    <div class="screen">
-        <div class="header">
-            <div>
-                <h2 style="margin:0; font-size: 1.4rem;">CarbonOS <span style="font-weight: 300;">Lite</span></h2>
-                <p style="margin:0; font-size: 0.8rem; opacity: 0.5;">Sultanate of Oman Initiative</p>
-            </div>
-            <div class="avatar">MH</div>
-        </div>
+<h1 style="margin-bottom: 40px;">CarbonOS Lite Phase-1 Prototype</h1>
 
-        <div class="hero-score">
-            <div class="progress-ring">
-                <svg width="180" height="180">
-                    <circle cx="90" cy="90" r="80" stroke="rgba(255,255,255,0.1)" stroke-width="12" fill="transparent" />
-                    <circle cx="90" cy="90" r="80" stroke="url(#gradient)" stroke-width="12" fill="transparent" 
-                            stroke-dasharray="502" stroke-dashoffset="150" stroke-linecap="round" />
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#00f5a0" />
-                            <stop offset="100%" stop-color="#00d9f5" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <div class="score-display">
-                    <span class="score-val">384</span>
-                    <span class="score-unit">kg CO₂e</span>
+<div class="container">
+    
+    <div class="phone">
+        <div class="screen">
+            <div class="app-header">
+                <span class="label-tag">Citizen Dashboard</span>
+                <div class="circle-container">
+                    <svg width="180" height="180" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="none"/>
+                        <circle cx="50" cy="50" r="45" stroke="var(--primary)" stroke-width="8" fill="none" stroke-dasharray="200" stroke-dashoffset="50" stroke-linecap="round"/>
+                    </svg>
+                    <div class="score-box">
+                        <span class="score-val" id="citizen-score">412</span>
+                        <div style="font-size: 0.7rem; opacity: 0.6;">kg CO₂e</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem;">Status: <span style="color:var(--primary)">Eco-Active Participant</span></p>
+            </div>
+
+            <div class="card">
+                <div class="flex-row">
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Home Electricity Est.</div>
+                        <div style="font-weight: 700;">142.5 kg</div>
+                    </div>
+                    <i class="fa-solid fa-bolt" style="color: var(--accent);"></i>
                 </div>
             </div>
-            <p style="font-size: 0.9rem; margin-top: 15px; font-weight: 600;">Level: <span style="color:var(--primary)">Eco-Guardian</span></p>
-        </div>
 
-        <div class="category-grid">
-            <div class="cat-card">
-                <i class="fa-solid fa-house-bolt"></i>
-                <span class="cat-label">Home Energy</span>
-                <span class="cat-val">128.4</span>
-            </div>
-            <div class="cat-card">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span class="cat-label">Retail Impact</span>
-                <span class="cat-val">255.6</span>
-            </div>
-        </div>
-
-        <div class="logs">
-            <h3 style="font-size: 1rem; margin-bottom: 15px; padding-left: 5px;">Activity Stream</h3>
-            
-            <div class="log-row">
-                <div class="cid-icon"><i class="fa-solid fa-mug-hot"></i></div>
-                <div>
-                    <span style="display:block; font-size:0.9rem; font-weight:600;">Costa Coffee</span>
-                    <span style="font-size:0.7rem; opacity:0.5;">CID: BEV-CF-01</span>
+            <div class="card">
+                <h4 style="margin: 0 0 15px 0; font-size: 0.9rem;">Recent Environmental Record</h4>
+                <div id="log-container">
+                    <div class="flex-row" style="margin-bottom: 12px;">
+                        <div>
+                            <div style="font-size: 0.85rem;">Fresh Groceries</div>
+                            <span class="badge">CID-FOOD-OM</span>
+                        </div>
+                        <span class="impact-text">+2.1 kg</span>
+                    </div>
+                    <div class="flex-row">
+                        <div>
+                            <div style="font-size: 0.85rem;">Retail Shop Purchase</div>
+                            <span class="badge">CID-RETL-OM</span>
+                        </div>
+                        <span class="impact-text">+0.8 kg</span>
+                    </div>
                 </div>
-                <div class="impact-badge">+0.18</div>
             </div>
 
-            <div class="log-row">
-                <div class="cid-icon"><i class="fa-solid fa-cart-flatbed"></i></div>
-                <div>
-                    <span style="display:block; font-size:0.9rem; font-weight:600;">Lulu Hypermarket</span>
-                    <span style="font-size:0.7rem; opacity:0.5;">CID: FOOD-GR-99</span>
+            <div class="card" style="background: var(--secondary); border: none;">
+                <div style="font-size: 0.8rem; line-height: 1.4;">
+                    <i class="fa-solid fa-lightbulb"></i> <b>Practical Suggestion:</b><br>
+                    [span_2](start_span)[span_3](start_span)Reducing unnecessary electricity can improve your score by 10%.[span_2](end_span)[span_3](end_span)
                 </div>
-                <div class="impact-badge">+4.20</div>
             </div>
-
-            <div style="background: linear-gradient(90deg, #3b82f6, #2dd4bf); padding: 20px; border-radius: 25px; margin-top: 10px;">
-                <h4 style="margin:0; font-size: 0.9rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Pro Insight</h4>
-                <p style="margin: 5px 0 0; font-size: 0.75rem; line-height: 1.4;">Your grocery footprint is 5% lower this week. Buying local saved you 2.1kg CO2e!</p>
-            </div>
-        </div>
-
-        <div class="nav">
-            <div class="nav-item active"><i class="fa-solid fa-compass"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-barcode"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-trophy"></i></div>
-            <div class="nav-item"><i class="fa-solid fa-gear"></i></div>
         </div>
     </div>
+
+    <div class="phone">
+        <div class="screen">
+            <div class="app-header" style="background: linear-gradient(180deg, #1e293b 0%, var(--bg) 100%);">
+                <span class="label-tag">Merchant Terminal</span>
+                <h2 style="margin: 20px 0 5px 0;">Oman Café #04</h2>
+                [span_4](start_span)<span class="merchant-badge"><i class="fa-solid fa-certificate"></i> Verified 'Green Shop'[span_4](end_span)</span>
+            </div>
+
+            <div class="card">
+                <h4 style="margin: 0 0 15px 0; font-size: 0.9rem;">Quick Bill (Phase-1 Interface)</h4>
+                
+                <div class="flex-row" style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+                    <div>
+                        <div style="font-size: 0.85rem;">Standard Coffee</div>
+                        <span class="badge">BEV-COF-01</span>
+                    </div>
+                    <button class="btn-add" onclick="updateScore(0.20)">+0.20kg</button>
+                </div>
+
+                <div class="flex-row" style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+                    <div>
+                        <div style="font-size: 0.85rem;">Bakery Item</div>
+                        <span class="badge">FOOD-BK-05</span>
+                    </div>
+                    <button class="btn-add" onclick="updateScore(0.45)">+0.45kg</button>
+                </div>
+
+                <div class="flex-row">
+                    <div>
+                        <div style="font-size: 0.85rem;">Plastic Bag</div>
+                        <span class="badge">RETL-PL-01</span>
+                    </div>
+                    <button class="btn-add" style="background:#ef4444;" onclick="updateScore(1.58)">+1.58kg</button>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Daily Participation Recognition</div>
+                <div style="font-size: 1.2rem; font-weight: 700;">48 Customers Tracked</div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    let score = 412;
+    function updateScore(val) {
+        score += val;
+        document.getElementById('citizen-score').innerText = score.toFixed(1);
+        
+        // Add to log visually
+        const log = document.getElementById('log-container');
+        const newEntry = document.createElement('div');
+        newEntry.className = 'flex-row';
+        newEntry.style.marginTop = '12px';
+        newEntry.innerHTML = `<div><div style="font-size: 0.85rem;">New Purchase</div><span class="badge">SYNC-POS</span></div><span class="impact-text">+${val.toFixed(2)} kg</span>`;
+        log.prepend(newEntry);
+    }
+</script>
 
 </body>
 </html>
