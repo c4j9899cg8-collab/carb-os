@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarbonOS Lite | Dual Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.9);
+            --primary: #00a86b;
+            --secondary: #05668d;
+            --bg: #f0f4f8;
+            --text: #2d3436;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navigation Toggle */
+        .view-switcher {
+            margin: 20px 0;
+            background: white;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+        }
+
+        .view-switcher button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .active-btn { background: var(--primary); color: white; }
+
+        /* Shared UI Components */
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            min-height: 700px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .header {
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        /* Buyer UI Specifics */
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 8px solid rgba(255,255,255,0.2);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-value { font-size: 2.5rem; font-weight: 800; }
+
+        /* Shop Owner UI Specifics */
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .carbon-id {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            background: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="view-switcher">
+        <button id="buyerBtn" class="active-btn" onclick="showView('buyer')">Buyer View</button>
+        <button id="shopBtn" onclick="showView('shop')">Shop Owner View</button>
+    </div>
+
+    <div id="buyerView" class="app-container">
+        <div class="header">
+            <h3>CarbonOS Lite</h3>
+            <p>Citizen Awareness Portal</p>
+            <div class="score-circle">
+                <span class="score-value" id="userScore">0</span>
+                <span style="font-size: 0.8rem; opacity: 0.8;">kg CO₂e</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h4 style="margin-top: 0;"><i class="fa-solid fa-leaf"></i> Monthly Summary</h4>
+            [span_1](start_span)<p style="font-size: 0.9rem; color: #666;">Estimated Impact: <b>12% lower</b> than last month[span_1](end_span)!</p>
+        </div>
+
+        <div class="card">
+            <h4>Recent Activity</h4>
+            <div id="activityLog" style="font-size: 0.85rem;">
+                <p style="text-align: center; color: #999;">No purchases recorded yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="shopView" class="app-container hidden">
+        <div class="header">
+            <h3>Merchant Terminal</h3>
+            <p>Climfra Solutions Partner</p>
+            <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 15px;">
+                <span id="shopBadge"><i class="fa-solid fa-award"></i> Silver Green Shop</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4 style="margin-top: 0;">Point of Sale (POS)</h4>
+            [span_2](start_span)<p style="font-size: 0.8rem; color: #666;">Scanning items automatically records Carbon ID[span_2](end_span).</p>
+            
+            <div class="product-row">
+                <div>
+                    <div>Fresh Bread</div>
+                    <span class="carbon-id">FD-BRD-OM</span>
+                </div>
+                <button class="add-btn" onclick="recordPurchase('Fresh Bread', 0.45, 'FD-BRD-OM')">Add 0.45kg</button>
+            </div>
+
+            <div class="product-row">
+                <div>
+                    <div>Bottled Water</div>
+                    <span class="carbon-id">BV-WTR-OM</span>
+                </div>
+                <button class="add-btn" onclick="recordPurchase('Bottled Water', 0.12, 'BV-WTR-OM')">Add 0.12kg</button>
+            </div>
+
+            <div class="product-row">
+                <div>
+                    <div>Non-Eco Bag</div>
+                    <span class="carbon-id">RT-PLST-01</span>
+                </div>
+                <button class="add-btn" style="background: #e74c3c;" onclick="recordPurchase('Plastic Bag', 1.20, 'RT-PLST-01')">Add 1.20kg</button>
+            </div>
+        </div>
+
+        <div class="card" style="background: #f8fff9;">
+            <h4 style="margin: 0; color: var(--primary);"><i class="fa-solid fa-chart-line"></i> Shop Impact</h4>
+            [span_3](start_span)<p style="font-size: 0.8rem;">You have helped <b>42 customers</b> track their footprint today[span_3](end_span)!</p>
+        </div>
+    </div>
+
+    <script>
+        let totalCarbon = 0;
+
+        function showView(view) {
+            document.getElementById('buyerView').classList.toggle('hidden', view !== 'buyer');
+            document.getElementById('shopView').classList.toggle('hidden', view !== 'shop');
+            document.getElementById('buyerBtn').classList.toggle('active-btn', view === 'buyer');
+            document.getElementById('shopBtn').classList.toggle('active-btn', view === 'shop');
+        }
+
+        function recordPurchase(name, impact, cid) {
+            [span_4](start_span)// Update the score[span_4](end_span)
+            totalCarbon += impact;
+            document.getElementById('userScore').innerText = totalCarbon.toFixed(2);
+
+            [span_5](start_span)// Add to activity log[span_5](end_span)
+            const log = document.getElementById('activityLog');
+            if (log.innerHTML.includes("No purchases")) log.innerHTML = "";
+            
+            const item = document.createElement('div');
+            item.className = 'product-row';
+            item.innerHTML = `<span>${name}</span> <span style="font-weight:bold; color:var(--primary);">+${impact}kg</span>`;
+            log.prepend(item);
+
+            // Visual feedback
+            [span_6](start_span)alert(`Item ${cid} recorded to Customer Account[span_6](end_span)`);
+        }
+    </script>
+</body>
+</html>
